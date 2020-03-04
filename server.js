@@ -6,13 +6,13 @@ const cookieParser = require('cookie-parser');
 const { dollarFormatter } = require('./js/utils');
 const { products } = require('./data/products.json');
 
+const port = process.env.PORT || 6969;
 const handlebars = require('express-handlebars').create({
     defaultLayout: 'main',
 });
 
 app.set('view engine', 'handlebars');
 app.engine('handlebars', handlebars.engine);
-app.set('port', 6969);
 
 //BODY PARSER SET-UP
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -86,6 +86,6 @@ app.use((err, req, res, next) => {
     res.render('500');
 });
 
-app.listen(app.get('port'), () => {
-    console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
+app.listen(port, () => {
+    console.log('Express started on ' + port + '; press Ctrl-C to terminate.');
 });
