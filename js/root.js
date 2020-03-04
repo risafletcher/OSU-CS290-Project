@@ -25,6 +25,22 @@ const registerCarouselScrolling = () => {
     }
 };
 
+const registerAddToCartHandler = () => {
+    const addToCartButton = document.getElementsByClassName('add-to-cart-btn')[0];
+    const params = new URL(document.location).searchParams;
+    const id = params.get('id');
+    addToCartButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        fetch('/addToCart', {
+            method: 'POST',
+            headers: new Headers({ 'Content-Type': 'application/json' }),
+            mode: 'same-origin',
+            body: JSON.stringify({ id })
+        })
+        .catch(err => console.error(err));
+    })
+};
+
 (function() {
     const { pathname } = window.location;
     switch(pathname) {
@@ -32,6 +48,7 @@ const registerCarouselScrolling = () => {
             registerCarouselScrolling();
             break;
         case '/product':
+            registerAddToCartHandler();
             registerCartSuccessMessage();
             break;
         default:

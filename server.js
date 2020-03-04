@@ -9,13 +9,16 @@ const { products } = require('./data/products.json');
 const port = process.env.PORT || 6969;
 const handlebars = require('express-handlebars').create({
     defaultLayout: 'main',
+    helpers: {
+        stringify: (context) => JSON.stringify(context),
+    }
 });
 
 app.set('view engine', 'handlebars');
 app.engine('handlebars', handlebars.engine);
 
 //BODY PARSER SET-UP
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/')));
 
@@ -45,7 +48,6 @@ app.get('/product', (req, res) => {
 
 app.get('/cart', (req, res) => {
     let cartProducts = [];
-    console.log(req.cookies.cart);
     for (let productId in req.cookies.cart) {
         const queryParams = req.query;
         const shouldRemove = queryParams.action === 'remove' && queryParams.id == productId;
@@ -53,8 +55,7 @@ app.get('/cart', (req, res) => {
             const cart = req.cookies['cart'] || {};
             const newCart = { ...cart };
             delete newCart[queryParams.id];
-            res.cookie('cart', newCart);   
-            console.log(req.cookies); 
+            res.cookie('cart', newCart);
         } else {
             const cartProduct = products.find(({ id }) => id == productId);
             cartProduct.quantity = req.cookies.cart[productId].quantity;
@@ -69,6 +70,19 @@ app.get('/cart', (req, res) => {
         totalPrice: dollarFormatter.format(totalPrice),
     });
 });
+
+app.post('/addToCart', (req, res) => {
+    const { id } = req.body;
+    const product = products.find((item) => item.id == id);
+    const cart = req.cookies['cart'] || {};
+    const quantity = cart[product.id] ? cart[product.id].quantity + 1 : 1;
+    const newCart = {
+        ...cart,
+        [product.id] : { quantity },
+    };
+    res.cookie('cart', newCart);
+    res.end();
+})
 
 app.get('/contact', (req, res) => {
     res.render('contact');
