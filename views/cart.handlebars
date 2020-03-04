@@ -1,0 +1,37 @@
+<h1>Cart</h1>
+<div class="cart">
+    <table>
+        <col class="cart__col-name">
+        <col class="cart__col-qty">
+        <col class="cart__col-price">
+        <col class="cart__col-remove">
+        <thead>
+            <tr>
+                <td scope="col">Name</td>
+                <td scope="col" class="cart__quantity-head">Quantity</td>
+                <td scope="col" class="cart__price-head">Price</td>
+                <td scope="col" class="cart__remove-head">Remove</td>
+            </tr>
+        </thead>
+        {{#unless products}}
+            <tr class="cart__empty-message">
+                <td colspan="4"><em>Your cart is empty.</em></td>
+            </tr>
+        {{/unless}}
+        {{#each products}}
+            <tr>
+                <td><a href="/product?id={{this.id}}">{{this.name}}</a></td>
+                <td class="cart__quantity-cell">
+                    {{this.quantity}}
+                </td>
+                <td class="cart__price-cell">${{this.price}}</td>
+                <td class="cart__remove-cell">
+                    <a href="/cart?id={{this.id}}&action=remove">X</a>
+                </td>
+            </tr>
+        {{/each}}
+        <tr>
+            <td colspan="4">Total Price: &nbsp;{{totalPrice}}</td>
+        </tr>
+    </table>
+</div>

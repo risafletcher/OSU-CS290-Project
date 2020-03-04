@@ -1,0 +1,34 @@
+<header>
+    <h1>Company Name</h1>
+</header>
+<section>
+    <div class="promo-container">
+        <h3>Promotional Products</h3>
+        <div class="carousel">
+            <button class="carousel__left-arrow"><</button>
+            <div class="carousel__body">
+                {{#each products}}
+                    <img src={{this.promoImage}} alt={{this.alt}} class="carousel__img"/>
+                {{/each}}
+            </div>
+            <button class="carousel__right-arrow">></button>
+        </div>
+    </div>
+</section>
+
+<header>
+    <h3>Resources</h3>
+</header>
+<section>
+    <ul>
+        <li>
+            <a href="./assets/cv.pdf" download class="home__download-link">Download CV</a>
+        </li>
+        <li>
+            <a href="http://google.com" target="_blank" rel="noopener noreferrer">Google</a>
+        </li>
+        <li>
+            Photo credit: <a href="http://pixabay.com" target="_blank" rel="noopener noreferrer">Pixabay</a>
+        </li>
+    </ul>
+</section>

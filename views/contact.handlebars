@@ -1,0 +1,38 @@
+<header>
+    <h1>Contact</h1>
+</header>
+
+<h3>Staff Directory</h3>
+<section>
+    <ul>
+        <li><strong>Greg</strong>: <a href="mailto:greg@greg.com">greg@greg.com</a></li>
+        <li><strong>Not-Greg</strong>: <a href="mailto:not-greg@greg.com">not-greg@greg.com</a></li>
+    </ul>
+</section>
+
+<h3>Contact Form</h1>
+<form
+    action="http://web.engr.oregonstate.edu/~zhangluy/tools/class-content/form_tests/check_request.php"
+    method="POST"
+    class="contact__form"
+>
+   <div class="contact__input-group">
+        <label for="name">Name: </label> 
+        <input type="text" name="name">
+   </div>
+    <div class="contact__input-group">
+        <label for="email">Email: </label>
+        <input type="email" name="email">
+    </div>
+    <div class="contact__input-group">
+        <label for="phone">Phone: </label>
+        <input type="text" name="phone">
+    </div>
+    <div class="contact__input-group">
+        <label for="message">Message: </label>
+        <textarea type="text" name="message" rows="5" cols="50"></textarea>
+    </div>
+    <div class="contact__form-submit">
+        <button>Send</button>
+    </div>
+</form>

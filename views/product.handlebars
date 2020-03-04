@@ -1,0 +1,15 @@
+<div class="product">
+    <img src={{product.image}} alt={{product.alt}} class="product__image">
+    <div class="product__summary">
+        <h1>{{product.name}}</h1>
+        <div><strong>{{product.brand}}</strong></div>
+        <p><em>{{product.description}}</em></p>
+    </div>
+    <div class="product__action-col">
+        Price:
+        <div class="product__action-col--price">${{product.price}}</div>
+        <button class="add-to-cart-btn" onclick={{addToCart}}>
+            Add to Cart
+        </button>
+    </div>
+</div>
