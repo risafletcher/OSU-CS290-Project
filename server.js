@@ -34,16 +34,7 @@ app.get('/products', (req, res) =>
 app.get('/product', (req, res) => {
     const { id } = req.query;
     const product = products.find((item) => item.id == id);
-    const addToCart = () => {
-        const cart = req.cookies['cart'] || {};
-        const quantity = cart[product.id] ? cart[product.id].quantity + 1 : 1;
-        const newCart = {
-            ...cart,
-            [product.id] : { quantity },
-        };
-        res.cookie('cart', newCart);
-    }
-    res.render('product', { product, addToCart });
+    res.render('product', { product });
 });
 
 app.get('/cart', (req, res) => {
