@@ -5,12 +5,14 @@
 <div class="products">
     {{#each products}}
         <div class="product-card">
-            <a href="/product?id={{this.id}}">
-                <img src={{this.image}} alt={{this.alt}}>
-            </a>
+            <div>
+                <a href="/product?id={{this.id}}">
+                    <img src="{{this.image}}" alt="{{this.alt}}">
+                </a>
+            </div>
             <div class="product-card__info">
                 <div class="product-card__name">
-                    <a href="/product?={{this.id}}">{{this.name}}</a>
+                    <a href="/product?id={{this.id}}">{{this.name}}</a>
                 </div>
                 <div class="product-card__price">{{this.price}}</div>
             </div>
