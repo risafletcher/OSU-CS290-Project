@@ -40,18 +40,9 @@ app.get('/product', (req, res) => {
 app.get('/cart', (req, res) => {
     let cartProducts = [];
     for (let productId in req.cookies.cart) {
-        const queryParams = req.query;
-        const shouldRemove = queryParams.action === 'remove' && queryParams.id == productId;
-        if (shouldRemove) {
-            const cart = req.cookies['cart'] || {};
-            const newCart = { ...cart };
-            delete newCart[queryParams.id];
-            res.cookie('cart', newCart);
-        } else {
-            const cartProduct = products.find(({ id }) => id == productId);
-            cartProduct.quantity = req.cookies.cart[productId].quantity;
-            cartProduct && cartProducts.push(cartProduct)
-        }
+        const cartProduct = products.find(({ id }) => id == productId);
+        cartProduct.quantity = req.cookies.cart[productId].quantity;
+        cartProduct && cartProducts.push(cartProduct);
     }
     let totalPrice = 0;
     cartProducts.forEach(({ price, quantity }) => totalPrice += (parseFloat(price)) * quantity);
@@ -73,7 +64,15 @@ app.post('/addToCart', (req, res) => {
     };
     res.cookie('cart', newCart);
     res.end();
-})
+});
+
+app.delete('/removeFromCart', (req, res) => {
+    const cart = req.cookies['cart'] || {};
+    const newCart = { ...cart };
+    delete newCart[req.body.id];
+    res.cookie('cart', newCart);
+    res.end();
+});
 
 app.get('/contact', (req, res) => {
     res.render('contact');

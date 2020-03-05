@@ -55,6 +55,17 @@ const registerAddToCartHandler = () => {
     })
 };
 
+function removeFromCartHandler(id) {
+    fetch('/removeFromCart', {
+        method: 'DELETE',
+        headers: new Headers({ 'Content-Type': 'application/json' }),
+        mode: 'same-origin',
+        body: JSON.stringify({ id })
+    })
+    .then(() => location.reload())  // not ideal, but I need to learn more about partial rerendinrg in vanilla js
+    .catch(err => console.error(err));
+}
+
 (function() {
     const { pathname } = window.location;
     switch(pathname) {

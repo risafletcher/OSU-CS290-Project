@@ -19,14 +19,14 @@
             </tr>
         {{/unless}}
         {{#each products}}
-            <tr>
+            <tr id="cart__product-{{this.id}}">
                 <td><a href="/product?id={{this.id}}">{{this.name}}</a></td>
                 <td class="cart__quantity-cell">
                     {{this.quantity}}
                 </td>
                 <td class="cart__price-cell">${{this.price}}</td>
                 <td class="cart__remove-cell">
-                    <a href="/cart?id={{this.id}}&action=remove">X</a>
+                    <button onclick="removeFromCartHandler({{this.id}})">X</button>
                 </td>
             </tr>
         {{/each}}
