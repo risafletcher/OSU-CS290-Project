@@ -16,13 +16,27 @@ const registerCarouselScrolling = () => {
     const leftArrow = document.getElementsByClassName('carousel__left-arrow')[0];
     const carouselBody = document.getElementsByClassName('carousel__body')[0];
     const carouselImages = document.getElementsByClassName('carousel__img');
-    leftArrow.addEventListener('click', () => carouselBody.scrollLeft -= (carouselImages[0].width));
-    rightArrow.addEventListener('click', () => carouselBody.scrollLeft += (carouselImages[0].width + 10));
-    let offsetX = 2500;
-    for (let i = 0; i < carouselImages.length; i++) {
-        setTimeout(() => carouselBody.scrollLeft += carouselImages[0].width + 10, offsetX);
-        offsetX += 2500;
-    }
+
+    let carouselAutoScroll = setInterval(() => carouselBody.scrollLeft += carouselImages[0].width + 10, 2500);
+    carouselBody.addEventListener('scroll', () => {
+        const endReached = carouselBody.scrollLeft >= carouselBody.scrollWidth - carouselBody.clientWidth;
+        const startReached = carouselBody.scrollLeft === 0;
+        if (endReached) {
+            clearInterval(carouselAutoScroll);
+            carouselAutoScroll = setInterval(() => carouselBody.scrollLeft -= carouselImages[0].width + 10, 2500);
+        }
+        if (startReached) {
+            clearInterval(carouselAutoScroll);
+        }
+    });
+    leftArrow.addEventListener('click', () => {
+        carouselBody.scrollLeft -= (carouselImages[0].width + 10);
+        clearInterval(carouselAutoScroll);
+    });
+    rightArrow.addEventListener('click', () => {
+        carouselBody.scrollLeft += (carouselImages[0].width + 10);
+        clearInterval(carouselAutoScroll);
+    });
 };
 
 const registerAddToCartHandler = () => {

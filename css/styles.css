@@ -115,7 +115,7 @@ main {
     text-align: right;
 }
 
-.carousel__body > img {
+.carousel__body img {
     height: 30vh;
     background-color: lightgrey;
 }
